@@ -116,42 +116,64 @@ public class Main {
         while (true) {
             System.out.println("\nSUA ARMADURA COMEÇA A SUSURRAR PARA VOCÊ CONTINUAR AVANÇANDO...");
             System.out.println("<<Pressione W para andar para frente>>");
-            String movimento = scan.nextLine();
+            String movimento = scan.nextLine().trim().toUpperCase();
 
-            if (movimento.equalsIgnoreCase("W")) {
+            if (movimento.equals("W")) {
                 System.out.println("\nCAMINHANDO PARA FRENTE VOCÊ ATRAVESSA A FLORESTA A QUAL MATOU UM GRUPO DE HOMENS");
 
                 // CENA 2 - (Kravelheim - Forja de Lamentos)
-                System.out.println("\nA SUA FRENTE TEM UMA CIDADE TOTALMENTE DESTRUÍDA, COM RUÍNAS POR TODOS OS LADOS");
-                System.out.println("DESEJA PASSAR POR ESSA CIDADE?");
-                System.out.println("<<Pressione W para ENTRAR ou A para DAR A VOLTA>>");
+                while (true) {  // Loop para a decisão da cidade
+                    System.out.println("\nA SUA FRENTE TEM UMA CIDADE TOTALMENTE DESTRUÍDA, COM RUÍNAS POR TODOS OS LADOS");
+                    System.out.println("DESEJA PASSAR POR ESSA CIDADE?");
+                    System.out.println("<<Pressione W para ENTRAR ou A para DAR A VOLTA>>");
 
-                while (true) {
-                    String decisaoCidade = scan.nextLine();
+                    String decisaoCidade = scan.nextLine().trim().toUpperCase();
 
-                    if (decisaoCidade.equalsIgnoreCase("W")) {
+                    if (decisaoCidade.equals("W")) {
                         questlineCity = true;
                         System.out.println("VOCÊ DECIDE ENTRAR NA CIDADE - Kravelheim/Forja de Lamentos");
                         System.out.println("\nA VOZ DA ARMADURA MURMURA DENTRO DE SUA MENTE:");
                         System.out.println("-Sangue… sangue outra vez. Você nasceu para dilacerar.");
-                        System.out.println();
-                        break; // sai do loop da decisão
+                        System.out.println("\nVOCÊ IGNORA A IRONIA DA ARMADURA E CONTINUA ANDANDO EM LINHA RETA");
 
-                    } else if (decisaoCidade.equalsIgnoreCase("A")) {
+                        while (true) {  // Loop para continuar na cidade
+                            System.out.println("\nPRESSIONE 'W' PARA CONTINUAR");
+                            String continuarCidade = scan.nextLine().trim().toUpperCase();
+
+                            if (continuarCidade.equals("W")) {
+                                String[] mensagensCena2 = {
+                                    "-Um estalo vindo pelo ar",
+                                    "-como uma cobra metalica vindo em sua direção",
+                                    "-THUNK",
+                                    "-Uma flecha se crava a dois centímetros de sua cabeça..."
+                                };
+
+                                for (String mensagem : mensagensCena2) {
+                                    System.out.println(mensagem);
+                                    System.out.println("<<Pressione Enter para continuar>>");
+                                    scan.nextLine();
+                                }
+                                break;
+                            } else {
+                                System.out.println("Pressione 'W' para continuar.");
+                            }
+                        }
+                        break;
+
+                    } else if (decisaoCidade.equals("A")) {
                         questlineCity = false;
                         System.out.println("VOCÊ NÃO PASSA PELA CIDADE E DECIDE IR POR FORA");
-                        break; // sai do loop da decisão
+                        break;
                     } else {
                         System.out.println("Pressione 'W' para ENTRAR ou 'A' para DAR A VOLTA.");
                     }
                 }
-
-                break; // sai do loop principal após completar a cena 2
+                break;
             } else {
-                System.out.println("Você precisa pressionar 'W' para continuar.");
+                System.out.println("Pressione 'W' para continuar.");
             }
-
-            // CONTINUAÇÃO (CENA 2)
         }
+
+        // Continue sua história aqui baseado no valor de questlineCity
     }
 }
