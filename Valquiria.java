@@ -2,20 +2,12 @@ public class Valquiria {
     private String nome;
     private String localidade;
     private String idade;
+    private Atributos atributos;  // Adicionar atributos
 
-    //CRIAÇÃO DA CLASSE VALQUIRIA
-
-     public Valquiria(String nome, String localidade, String idade) {
+    public Valquiria(String nome, String localidade, String idade) {
         this.nome = nome;
         this.localidade = localidade;
         this.idade = idade;
-    }
-
-    public Valquiria(String idade) {
-        this.nome = "Nome Não Identificado";
-        this.localidade = "Local Não Identificado";
-        this.idade = "Idade Não Identificada";
-        
     }
 
     public String getNome() {
@@ -30,11 +22,16 @@ public class Valquiria {
         return idade;
     }
 
-    //HABILIDADES, MALDIÇÕES e PASSIVAS
+    // Adicionar getters e setters para atributos
+    public void setAtributos(Atributos atributos) {
+        this.atributos = atributos;
+    }
+
+    public Atributos getAtributos() {
+        return atributos;
+    }
+
     public void skillPassivaPodre() {
         System.out.println("Podridão Scarlate - ON");
     }
-    
-
-    
 }

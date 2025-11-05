@@ -2,10 +2,9 @@ public class Flecheiro {
     private String nome;
     private String localidade;
     private int idade;
+    private Atributos atributos;  // Adicionar atributos
 
-    //CRIAÇÃO DA CLASSE FLECHEIRO
-
-     public Flecheiro(String nome, String localidade, int idade) {
+    public Flecheiro(String nome, String localidade, int idade) {
         this.nome = nome;
         this.localidade = localidade;
         this.idade = idade;
@@ -23,5 +22,12 @@ public class Flecheiro {
         return idade;
     }
 
+    // Adicionar getters e setters para atributos
+    public void setAtributos(Atributos atributos) {
+        this.atributos = atributos;
+    }
 
+    public Atributos getAtributos() {
+        return atributos;
+    }
 }

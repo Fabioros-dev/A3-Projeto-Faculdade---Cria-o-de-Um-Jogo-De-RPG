@@ -1,3 +1,4 @@
+
 import java.util.Scanner;
 
 public class Main {
@@ -5,13 +6,66 @@ public class Main {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
 
-        // CRIAÇÃO DOS PERSONAGENS
-        Cavaleiro Guts = new Cavaleiro("Guts", "Valdarion", 24);
-        Flecheiro Pinocchio = new Flecheiro("Pinocchio", "Kravelheim - Forja de Lamentos", 16);
-        Cavaleiro Vyke = new Cavaleiro("Vyke", "Sol'Rathor - Cidade Abençoada", 23);
+        // CRIAÇÃO DOS PERSONAGENS COM ATRIBUTOS
+        // Maria (sem armadura)
         Cavaleiro Maria = new Cavaleiro("Maria", "Sangravia - Vale das Cruzes", 22);
+        Maria.setAtributos(new Atributos(
+                4, // Vitalidade A
+                1, // Defesa D
+                3, // Força B
+                5, // Velocidade S
+                0 // Sem armadura
+        ));
+
+        // Guts (armadura ++)
+        Cavaleiro Guts = new Cavaleiro("Guts", "Valdarion", 24);
+        Guts.setAtributos(new Atributos(
+                4, // Vitalidade A
+                4, // Defesa A
+                4, // Força A
+                1, // Velocidade D
+                2 // Armadura ++
+        ));
+
+        // Vyke (armadura +)
+        Cavaleiro Vyke = new Cavaleiro("Vyke", "Sol'Rathor - Cidade Abençoada", 23);
+        Vyke.setAtributos(new Atributos(
+                3, // Vitalidade B = 3
+                4, // Defesa A = 4
+                4, // Força A = 4
+                3, // Velocidade B = 3
+                1 // Armadura + = 1
+        ));
+
+        // Pinocchio (sem armadura)
+        Flecheiro Pinocchio = new Flecheiro("Pinocchio", "Kravelheim - Forja de Lamentos", 16);
+        Pinocchio.setAtributos(new Atributos(
+                3, // Vitalidade B = 3
+                1, // Defesa D = 1
+                2, // Força C = 2
+                4, // Velocidade A = 4
+                0 // Sem armadura = 0
+        ));
+
+        // Artorias (armadura +)
         Cavaleiro Artorias = new Cavaleiro("Artorias", "Nethros Abyss - Poço da Escuridão", 26);
+        Artorias.setAtributos(new Atributos(
+                4, // Vitalidade A = 4
+                3, // Defesa B = 3
+                4, // Força A = 4
+                4, // Velocidade A = 4
+                1 // Armadura + = 1
+        ));
+
+        // Malenia (armadura +)
         Valquiria Malenia = new Valquiria("Malenia", "Elyndor - Árvore Sacra", "");
+        Malenia.setAtributos(new Atributos(
+                4, // Vitalidade A = 4
+                1, // Defesa D = 1
+                4, // Força A = 4
+                5, // Velocidade S = 5
+                1 // Armadura + = 1
+        ));
 
         // INICIO
         String[] mensagens = {
@@ -56,6 +110,8 @@ public class Main {
             indice++;
         }
 
+        boolean questlineCity = false;
+
         // CENA 1 - ANDAR PARA FRENTE 
         while (true) {
             System.out.println("\nSUA ARMADURA COMEÇA A SUSURRAR PARA VOCÊ CONTINUAR AVANÇANDO...");
@@ -74,6 +130,7 @@ public class Main {
                     String decisaoCidade = scan.nextLine();
 
                     if (decisaoCidade.equalsIgnoreCase("W")) {
+                        questlineCity = true;
                         System.out.println("VOCÊ DECIDE ENTRAR NA CIDADE - Kravelheim/Forja de Lamentos");
                         System.out.println("\nA VOZ DA ARMADURA MURMURA DENTRO DE SUA MENTE:");
                         System.out.println("-Sangue… sangue outra vez. Você nasceu para dilacerar.");
@@ -81,6 +138,7 @@ public class Main {
                         break; // sai do loop da decisão
 
                     } else if (decisaoCidade.equalsIgnoreCase("A")) {
+                        questlineCity = false;
                         System.out.println("VOCÊ NÃO PASSA PELA CIDADE E DECIDE IR POR FORA");
                         break; // sai do loop da decisão
                     } else {
@@ -92,6 +150,8 @@ public class Main {
             } else {
                 System.out.println("Você precisa pressionar 'W' para continuar.");
             }
+
+            // CONTINUAÇÃO (CENA 2)
         }
     }
 }

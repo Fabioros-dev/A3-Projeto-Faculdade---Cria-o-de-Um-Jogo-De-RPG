@@ -2,6 +2,7 @@ public class Cavaleiro {
     private String nome;
     private String localidade;
     private int idade;
+    private Atributos atributos;
 
     //CRIAÇÃO DA CLASSE CAVALEIRO
 
@@ -21,6 +22,14 @@ public class Cavaleiro {
 
     public int getIdade() {
         return idade;
+    }
+
+    public void setAtributos(Atributos atributos) {
+        this.atributos = atributos;
+    }
+
+    public Atributos getAtributos() {
+        return atributos;
     }
 
     //HABILIDADES, MALDIÇÕES e PASSIVAS
