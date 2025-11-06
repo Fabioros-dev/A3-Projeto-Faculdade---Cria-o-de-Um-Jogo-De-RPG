@@ -1,4 +1,3 @@
-
 import java.util.Scanner;
 
 public class Main {
@@ -122,7 +121,7 @@ public class Main {
                 System.out.println("\nCAMINHANDO PARA FRENTE VOCÊ ATRAVESSA A FLORESTA A QUAL MATOU UM GRUPO DE HOMENS");
 
                 // CENA 2 - (Kravelheim - Forja de Lamentos)
-                while (true) {  // Loop para a decisão da cidade
+                while (true) {
                     System.out.println("\nA SUA FRENTE TEM UMA CIDADE TOTALMENTE DESTRUÍDA, COM RUÍNAS POR TODOS OS LADOS");
                     System.out.println("DESEJA PASSAR POR ESSA CIDADE?");
                     System.out.println("<<Pressione W para ENTRAR ou A para DAR A VOLTA>>");
@@ -136,30 +135,61 @@ public class Main {
                         System.out.println("-Sangue… sangue outra vez. Você nasceu para dilacerar.");
                         System.out.println("\nVOCÊ IGNORA A IRONIA DA ARMADURA E CONTINUA ANDANDO EM LINHA RETA");
 
-                        while (true) {  // Loop para continuar na cidade
-                            System.out.println("\nPRESSIONE 'W' PARA CONTINUAR");
-                            String continuarCidade = scan.nextLine().trim().toUpperCase();
+                        String[] mensagensCena2 = {
+                            "-Um estalo vindo pelo ar",
+                            "-como uma cobra metalica vindo em sua direção",
+                            "-THUNK",
+                            "-Uma flecha se crava a dois centímetros de sua cabeça..."
+                        };
 
-                            if (continuarCidade.equals("W")) {
-                                String[] mensagensCena2 = {
-                                    "-Um estalo vindo pelo ar",
-                                    "-como uma cobra metalica vindo em sua direção",
+                        int indiceCena2 = 0;
+                        while (indiceCena2 < mensagensCena2.length) {
+                            System.out.println(mensagensCena2[indiceCena2]);
+                            System.out.println("<<Pressione Enter para continuar>>");
+                            scan.nextLine();
+                            indiceCena2++;
+                        }
+
+                        while (true) {
+                            System.out.println("\n'W' PARA CONTINUAR ANDANDO");
+                            System.out.println("'D' PARA ANALISAR");
+                            String acao = scan.nextLine().trim().toUpperCase();
+
+                            if (acao.equals("W") || acao.equals("D")) {
+                                System.out.println("\nVOCÊ DECIDE IGNORAR A FLECHA E CONTINUA ANDANDO PELA CIDADE DESTRUÍDA");
+
+                                String[] mensagensCena2cont = {
+                                    "-Outra flecha corta o ar",
                                     "-THUNK",
-                                    "-Uma flecha se crava a dois centímetros de sua cabeça..."
+                                    "-Dessa vez, bem na altura do peito..."
                                 };
-
-                                for (String mensagem : mensagensCena2) {
-                                    System.out.println(mensagem);
+                                int indiceCena2cont = 0;
+                                while (indiceCena2cont < mensagensCena2cont.length) {
+                                    System.out.println(mensagensCena2cont[indiceCena2cont]);
                                     System.out.println("<<Pressione Enter para continuar>>");
                                     scan.nextLine();
+                                    indiceCena2cont++;
                                 }
+
+                                // AÇÃO: desviar da flecha pressionando 'S'
+                                while (true) {
+                                    System.out.println("\nUma flecha vem em sua direção, mirando o peito!");
+                                    System.out.println("Pressione 'S' para desviar.");
+                                    String desviar = scan.nextLine().trim().toUpperCase();
+                                    if (desviar.equals("S")) {
+                                        System.out.println("\nVocê se esquiva no último segundo; a flecha passa raspando pelo seu ombro.");
+                                        break;
+                                    } else {
+                                        System.out.println("Entrada inválida. Pressione 'S' para desviar.");
+                                    }
+                                }
+
                                 break;
                             } else {
-                                System.out.println("Pressione 'W' para continuar.");
+                                System.out.println("Pressione 'W' para continuar ou 'D' ");
                             }
                         }
-                        break;
-
+                        break; // sai do loop da cidade
                     } else if (decisaoCidade.equals("A")) {
                         questlineCity = false;
                         System.out.println("VOCÊ NÃO PASSA PELA CIDADE E DECIDE IR POR FORA");
@@ -174,6 +204,58 @@ public class Main {
             }
         }
 
-        // Continue sua história aqui baseado no valor de questlineCity
+        // Aqui você pode continuar sua história com base em questlineCity
+        if (questlineCity) {
+            String[] mensagensCena2 = {
+                            "-Das sombras da vila, algo surge",
+                            "-Mecanismos chiando, ferro triturando pedra",
+                            "-Movimentos quebrados,como ossos deslocados",
+                            "_PINNOCHIO - O Filho Inacabado_",
+                            "-Seu braço mecânico goteja óleo e sangue seco",
+                            "-Olhos vazios, rasos...",
+                            "-A insanidade dissolvendo qualquer humanidade",
+                            "-Ele aponta outra flecha improvisada, feita com os restos de corpos da vila",
+                            "-Pinnochio sussurra com a voz tremula...",
+                            "“Pa…pai?”",
+                            "-Pinocchio começa a tremer,a fúria toma sua forma frági",
+                            "“VOCÊ! VOCÊ ME FEZ ASSIM!”",
+                            "-Ele solta uma rajada frenética de flechas, erráticas, desesperadas, como um animal ferido atacando o próprio reflexo",
+                            "-Guts ergue a Dragonslayer, o aço negro refletindo uma lua pálida",
+                            "A armadura sussurra...",
+                            "“Corte. Rasgue. Ele quer morrer.”"
+                        };
+
+                        for (String msg : mensagensCena2) {
+                            System.out.println(msg);
+                            System.out.println("<<Pressione Enter para continuar>>");
+                            scan.nextLine(); 
+                        }
+        } else {
+            System.out.println("\nVocê evita a cidade e segue pela encosta fria ao norte...");
+        }
+
+        while (true) {
+            System.out.println("QUESTLINE SECUNDARIA : MATE PINNOCHIO");
+            System.out.println("'E' PARA ACEITAR");
+            System.out.println("'Q' PARA RECUSAR");
+            String decisaoQuest = scan.nextLine().trim().toUpperCase();
+
+            if (decisaoQuest.equalsIgnoreCase("E")) {
+                System.out.println("\n<<QUESLINE ACEITA - MATE PINNOCHIO>>");
+                scan.nextLine();
+                break;
+            } else if (decisaoQuest.equalsIgnoreCase("Q")) {
+                System.out.println("\n<<VOCÊ ESCAPOU>>");
+                scan.nextLine();
+                break;
+            } else {
+                System.out.println("Pressione 'E' para aceitar ou 'Q' para recusar.");
+            }
+
+            
+        }
+
+        
     }
+
 }
