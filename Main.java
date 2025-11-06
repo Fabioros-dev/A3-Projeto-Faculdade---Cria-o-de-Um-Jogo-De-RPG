@@ -136,7 +136,7 @@ public class Main {
                         System.out.println("\nVOCÊ IGNORA A IRONIA DA ARMADURA E CONTINUA ANDANDO EM LINHA RETA");
 
                         String[] mensagensCena2 = {
-                            "-Um estalo vindo pelo ar",
+                            "\n-Um estalo vindo pelo ar",
                             "-como uma cobra metalica vindo em sua direção",
                             "-THUNK",
                             "-Uma flecha se crava a dois centímetros de sua cabeça..."
@@ -151,16 +151,14 @@ public class Main {
                         }
 
                         while (true) {
-                            System.out.println("\n'W' PARA CONTINUAR ANDANDO");
-                            System.out.println("'D' PARA ANALISAR");
+                            System.out.println("'W' PARA CONTINUAR ANDANDO");
                             String acao = scan.nextLine().trim().toUpperCase();
 
-                            if (acao.equals("W") || acao.equals("D")) {
+                            if (acao.equals("W")) {
                                 System.out.println("\nVOCÊ DECIDE IGNORAR A FLECHA E CONTINUA ANDANDO PELA CIDADE DESTRUÍDA");
 
                                 String[] mensagensCena2cont = {
-                                    "-Outra flecha corta o ar",
-                                    "-THUNK",
+                                    "\n-Outra flecha corta o ar",
                                     "-Dessa vez, bem na altura do peito..."
                                 };
                                 int indiceCena2cont = 0;
@@ -173,7 +171,6 @@ public class Main {
 
                                 // AÇÃO: desviar da flecha pressionando 'S'
                                 while (true) {
-                                    System.out.println("\nUma flecha vem em sua direção, mirando o peito!");
                                     System.out.println("Pressione 'S' para desviar.");
                                     String desviar = scan.nextLine().trim().toUpperCase();
                                     if (desviar.equals("S")) {
@@ -216,13 +213,14 @@ public class Main {
                             "-A insanidade dissolvendo qualquer humanidade",
                             "-Ele aponta outra flecha improvisada, feita com os restos de corpos da vila",
                             "-Pinnochio sussurra com a voz tremula...",
-                            "“Pa…pai?”",
-                            "-Pinocchio começa a tremer,a fúria toma sua forma frági",
-                            "“VOCÊ! VOCÊ ME FEZ ASSIM!”",
+                            "'Pa...pai?'",
+                            "-Pinocchio começa a tremer,a fúria toma sua forma frágil",
+                            "'VOCÊ! VOCÊ ME FEZ ASSIM!'",
                             "-Ele solta uma rajada frenética de flechas, erráticas, desesperadas, como um animal ferido atacando o próprio reflexo",
                             "-Guts ergue a Dragonslayer, o aço negro refletindo uma lua pálida",
                             "A armadura sussurra...",
-                            "“Corte. Rasgue. Ele quer morrer.”"
+                            "'Corte. Rasgue. Ele quer morrer.'"
+
                         };
 
                         for (String msg : mensagensCena2) {
@@ -230,11 +228,8 @@ public class Main {
                             System.out.println("<<Pressione Enter para continuar>>");
                             scan.nextLine(); 
                         }
-        } else {
-            System.out.println("\nVocê evita a cidade e segue pela encosta fria ao norte...");
-        }
 
-        while (true) {
+                        while (true) {
             System.out.println("QUESTLINE SECUNDARIA : MATE PINNOCHIO");
             System.out.println("'E' PARA ACEITAR");
             System.out.println("'Q' PARA RECUSAR");
@@ -254,6 +249,11 @@ public class Main {
 
             
         }
+        } else {
+            System.out.println("\nVocê evita a cidade e segue pela encosta fria ao norte...");
+        }
+
+        
 
         
     }
