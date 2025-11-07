@@ -1,3 +1,4 @@
+package src;
 public class Valquiria {
     private String nome;
     private String localidade;

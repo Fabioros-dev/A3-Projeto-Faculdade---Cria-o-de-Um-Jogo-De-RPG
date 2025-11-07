@@ -1,6 +1,8 @@
+package src;
+
 import java.util.Scanner;
 
-public class Main {
+public class Main  {
 
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
@@ -59,12 +61,14 @@ public class Main {
         // Malenia (armadura +)
         Valquiria Malenia = new Valquiria("Malenia", "Elyndor - Árvore Sacra", "");
         Malenia.setAtributos(new Atributos(
-                4, // Vitalidade A = 4
-                1, // Defesa D = 1
+                5, // Vitalidade A = 4
+                4, // Defesa D = 1
                 4, // Força A = 4
                 5, // Velocidade S = 5
                 1 // Armadura + = 1
         ));
+
+        Dado dado8 = new Dado(7);
 
         // INICIO
         String[] mensagens = {
@@ -204,58 +208,87 @@ public class Main {
         // Aqui você pode continuar sua história com base em questlineCity
         if (questlineCity) {
             String[] mensagensCena2 = {
-                            "-Das sombras da vila, algo surge",
-                            "-Mecanismos chiando, ferro triturando pedra",
-                            "-Movimentos quebrados,como ossos deslocados",
-                            "_PINNOCHIO - O Filho Inacabado_",
-                            "-Seu braço mecânico goteja óleo e sangue seco",
-                            "-Olhos vazios, rasos...",
-                            "-A insanidade dissolvendo qualquer humanidade",
-                            "-Ele aponta outra flecha improvisada, feita com os restos de corpos da vila",
-                            "-Pinnochio sussurra com a voz tremula...",
-                            "'Pa...pai?'",
-                            "-Pinocchio começa a tremer,a fúria toma sua forma frágil",
-                            "'VOCÊ! VOCÊ ME FEZ ASSIM!'",
-                            "-Ele solta uma rajada frenética de flechas, erráticas, desesperadas, como um animal ferido atacando o próprio reflexo",
-                            "-Guts ergue a Dragonslayer, o aço negro refletindo uma lua pálida",
-                            "A armadura sussurra...",
-                            "'Corte. Rasgue. Ele quer morrer.'"
+                "-Das sombras da vila, algo surge",
+                "-Mecanismos chiando, ferro triturando pedra",
+                "-Movimentos quebrados,como ossos deslocados",
+                "_PINNOCHIO - O Filho Inacabado_",
+                "-Seu braço mecânico goteja óleo e sangue seco",
+                "-Olhos vazios, rasos...",
+                "-A insanidade dissolvendo qualquer humanidade",
+                "-Ele aponta outra flecha improvisada, feita com os restos de corpos da vila",
+                "-Pinnochio sussurra com a voz tremula...",
+                "'Pa...pai?'",
+                "-Pinocchio começa a tremer,a fúria toma sua forma frágil",
+                "'VOCÊ! VOCÊ ME FEZ ASSIM!'",
+                "-Ele solta uma rajada frenética de flechas, erráticas, desesperadas, como um animal ferido atacando o próprio reflexo",
+                "-Guts ergue a Dragonslayer, o aço negro refletindo uma lua pálida",
+                "A armadura sussurra...",
+                "'Corte. Rasgue. Ele quer morrer.'"
 
-                        };
+            };
 
-                        for (String msg : mensagensCena2) {
-                            System.out.println(msg);
-                            System.out.println("<<Pressione Enter para continuar>>");
-                            scan.nextLine(); 
-                        }
-
-                        while (true) {
-            System.out.println("QUESTLINE SECUNDARIA : MATE PINNOCHIO");
-            System.out.println("'E' PARA ACEITAR");
-            System.out.println("'Q' PARA RECUSAR");
-            String decisaoQuest = scan.nextLine().trim().toUpperCase();
-
-            if (decisaoQuest.equalsIgnoreCase("E")) {
-                System.out.println("\n<<QUESLINE ACEITA - MATE PINNOCHIO>>");
+            for (String msg : mensagensCena2) {
+                System.out.println(msg);
+                System.out.println("<<Pressione Enter para continuar>>");
                 scan.nextLine();
-                break;
-            } else if (decisaoQuest.equalsIgnoreCase("Q")) {
-                System.out.println("\n<<VOCÊ ESCAPOU>>");
-                scan.nextLine();
-                break;
-            } else {
-                System.out.println("Pressione 'E' para aceitar ou 'Q' para recusar.");
             }
 
-            
-        }
+            while (true) {
+                System.out.println("QUESTLINE SECUNDARIA : MATE PINNOCHIO");
+                System.out.println("'E' PARA ACEITAR");
+                System.out.println("'Q' PARA RECUSAR");
+                String decisaoQuest = scan.nextLine().trim().toUpperCase();
+
+                if (decisaoQuest.equalsIgnoreCase("E")) {
+                    System.out.println("\n<<QUESTLINE ACEITA - MATE PINNOCHIO>>");
+
+                    dado8 = new Dado(8);
+                    int resultado = dado8.roll();
+                    System.out.println("Resultado do dado: " + resultado);
+                    
+                    // Pega a vitalidade atual antes do dano
+                    int vitalidadeAtual = Pinocchio.getAtributos().getVitalidade();
+                    
+                    if (resultado <= 3) {
+                        System.out.println("VOCÊ ERROU O ATAQUE");
+                        System.out.println("VEZ DE PINNOCHIO");
+                        break;
+                    } else if (resultado > 3 && resultado < 8) {
+                        // Causa 2 pontos de dano
+                        int novaPontosVida = Math.max(0, vitalidadeAtual - 2);
+                        Pinocchio.getAtributos().setVitalidade(novaPontosVida);
+                        System.out.println("Causou 2 pontos de dano!");
+                        System.out.println("Vitalidade atual de Pinocchio: " + novaPontosVida);
+                        break;
+                    } else if (resultado == 8) {
+                        // Causa 3 pontos de dano
+                        int novaPontosVida = Math.max(0, vitalidadeAtual - 3);
+                        Pinocchio.getAtributos().setVitalidade(novaPontosVida);
+                        System.out.println("Golpe Crítico! Causou 3 pontos de dano!");
+                        System.out.println("Vitalidade atual de Pinocchio: " + novaPontosVida);
+                        break;
+                    }
+
+                    // Verifica se Pinocchio foi derrotado
+                    if (Pinocchio.getAtributos().getVitalidade() <= 0) {
+                        System.out.println("\nPinocchio foi derrotado!");
+                        break;
+                    }
+
+                    break;
+                } else if (decisaoQuest.equalsIgnoreCase("Q")) {
+                    System.out.println("\n<<VOCÊ ESCAPOU>>");
+
+                    break;
+                } else {
+                    System.out.println("Pressione 'E' para aceitar ou 'Q' para recusar.");
+                }
+
+            }
         } else {
             System.out.println("\nVocê evita a cidade e segue pela encosta fria ao norte...");
         }
 
-        
-
-        
     }
 
 }

@@ -1,3 +1,4 @@
+package src;
 public class Flecheiro {
     private String nome;
     private String localidade;

@@ -1,3 +1,4 @@
+package src;
 public class Cavaleiro {
     private String nome;
     private String localidade;

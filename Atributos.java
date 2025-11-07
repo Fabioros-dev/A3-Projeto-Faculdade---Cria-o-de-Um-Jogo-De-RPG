@@ -1,3 +1,4 @@
+package src;
 public class Atributos {
     private int vitalidade;
     private int defesa;
