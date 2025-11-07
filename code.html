@@ -3,145 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elysdrin: A Queda das Lendas</title>
+    <title>Elysdrin RPG - Front-End</title>
     <style>
         body {
-            margin: 0;
-            padding: 0;
-            background-color: #000;
-            font-family: 'Courier New', monospace; /* Fonte pixelada retro */
-            color: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            image-rendering: pixelated;
-        }
-
-        #game-container {
-            width: 800px;
-            height: 600px;
-            border: 4px solid #fff;
-            position: relative;
-            background: linear-gradient(to bottom, #001122, #004400); /* Fundo escuro pixelado */
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-
-        #story-box {
-            flex: 1;
-            padding: 20px;
-            background-color: rgba(0, 0, 0, 0.8);
-            border-bottom: 2px solid #fff;
-            font-size: 16px;
-            line-height: 1.5;
-            overflow-y: auto;
-        }
-
-        #input-area {
-            padding: 10px;
-            background-color: rgba(0, 0, 0, 0.9);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        button {
-            background-color: #333;
-            color: #fff;
-            border: 2px solid #fff;
-            padding: 10px 20px;
-            font-size: 14px;
-            cursor: pointer;
-            margin: 0 10px;
             font-family: 'Courier New', monospace;
+            background-color: #000;
+            color: #fff;
+            margin: 0;
+            padding: 20px;
+            overflow-x: hidden;
         }
-
+        #game-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #111;
+            border: 2px solid #333;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+        #output {
+            height: 400px;
+            overflow-y: auto;
+            background-color: #000;
+            border: 1px solid #333;
+            padding: 10px;
+            margin-bottom: 20px;
+            white-space: pre-wrap;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        #buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #444;
+            border: 1px solid #666;
+            color: #fff;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 14px;
+            border-radius: 5px;
+        }
         button:hover {
             background-color: #555;
         }
-
-        #combat-ui {
+        .hidden {
             display: none;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
         }
-
-        .character {
-            margin: 20px;
-            text-align: center;
-        }
-
-        .health-bar {
-            width: 200px;
-            height: 20px;
-            background-color: #333;
-            border: 2px solid #fff;
-            margin: 10px 0;
-        }
-
-        .health-fill {
-            height: 100%;
-            background-color: #0f0;
-            transition: width 0.3s;
-        }
-
-        .sprite {
-            width: 64px;
-            height: 64px;
-            background-color: #f00; /* Placeholder para sprites pixelados */
-            margin: 0 auto;
-            image-rendering: pixelated;
-        }
-
-        /* Sprites simples pixelados (usando CSS para simular) */
-        .guts-sprite { background-color: #8B4513; } /* Marrom para Guts */
-        .pinocchio-sprite { background-color: #696969; } /* Cinza para Pinocchio */
     </style>
 </head>
 <body>
     <div id="game-container">
-        <div id="story-box"></div>
-        <div id="input-area">
-            <button id="enter-btn">Pressione Enter</button>
-            <button id="w-btn" style="display:none;">W - Andar</button>
-            <button id="a-btn" style="display:none;">A - Dar Volta</button>
-            <button id="s-btn" style="display:none;">S - Desviar</button>
-            <button id="q-btn" style="display:none;">Q - Recusar</button>
-            <button id="e-btn" style="display:none;">E - Aceitar</button>
-        </div>
-        <div id="combat-ui">
-            <div class="character">
-                <div class="sprite guts-sprite"></div>
-                <p>Guts</p>
-                <div class="health-bar"><div class="health-fill" id="guts-health" style="width:100%;"></div></div>
-            </div>
-            <div class="character">
-                <div class="sprite pinocchio-sprite"></div>
-                <p>Pinocchio</p>
-                <div class="health-bar"><div class="health-fill" id="pinocchio-health" style="width:100%;"></div></div>
-            </div>
-            <button id="roll-btn">Rolar Dado</button>
-        </div>
+        <h1>Elysdrin RPG</h1>
+        <div id="output"></div>
+        <div id="buttons"></div>
     </div>
 
     <script>
-        // Simulação das classes Java em JS
+        // Simulação das classes do Java (adaptadas para JS)
         class Atributos {
-            constructor(vitalidade, defesa, forca, velocidade, armadura) {
-                this.vitalidade = vitalidade;
-                this.defesa = defesa;
+            constructor(forca, destreza, vitalidade, inteligencia, velocidade) {
                 this.forca = forca;
+                this.destreza = destreza;
+                this.vitalidade = vitalidade;
+                this.inteligencia = inteligencia;
                 this.velocidade = velocidade;
-                this.armadura = armadura;
             }
         }
 
@@ -170,18 +101,18 @@
             }
         }
 
-        // Instâncias dos personagens (atualizado com Pinocchio vitalidade 4)
+        // Instâncias dos personagens
         const Maria = new Cavaleiro("Maria", "Sangravia - Vale das Cruzes", 22);
-        Maria.setAtributos(new Atributos(4, 1, 3, 5, 0));
+        Maria.setAtributos(new Atributos(4, 1, 2, 5, 0));
 
         const Guts = new Cavaleiro("Guts", "Valdarion", 24);
-        Guts.setAtributos(new Atributos(4, 4, 4, 1, 2));
+        Guts.setAtributos(new Atributos(4, 4, 4, 3, 2));
 
         const Vyke = new Cavaleiro("Vyke", "Sol'Rathor - Cidade Abençoada", 23);
         Vyke.setAtributos(new Atributos(3, 4, 4, 3, 1));
 
         const Pinocchio = new Flecheiro("Pinocchio", "Kravelheim - Forja de Lamentos", 16);
-        Pinocchio.setAtributos(new Atributos(4, 1, 2, 4, 0)); // Atualizado para 4
+        Pinocchio.setAtributos(new Atributos(4, 1, 4, 4, 0)); // Corrigido: vitalidade 4
 
         const Artorias = new Cavaleiro("Artorias", "Nethros Abyss - Poço da Escuridão", 26);
         Artorias.setAtributos(new Atributos(4, 3, 4, 4, 1));
@@ -190,232 +121,309 @@
         Malenia.setAtributos(new Atributos(5, 4, 4, 5, 1));
 
         // Elementos DOM
-        const storyBox = document.getElementById('story-box');
-        const enterBtn = document.getElementById('enter-btn');
-        const wBtn = document.getElementById('w-btn');
-        const aBtn = document.getElementById('a-btn');
-        const sBtn = document.getElementById('s-btn');
-        const qBtn = document.getElementById('q-btn');
-        const eBtn = document.getElementById('e-btn');
-        const combatUI = document.getElementById('combat-ui');
-        const rollBtn = document.getElementById('roll-btn');
-        const gutsHealth = document.getElementById('guts-health');
-        const pinocchioHealth = document.getElementById('pinocchio-health');
+        const output = document.getElementById('output');
+        const buttons = document.getElementById('buttons');
 
         // Estado do jogo
-        let currentMessages = [];
-        let messageIndex = 0;
-        let questlineCity = false;
-        let inCombat = false;
-        let vezGuts = true;
-        let dado = new Dado(8);
+        let gameState = 'intro';
+        let currentMessageIndex = 0;
+        let vezGuts = true; // Corrigido: inicia com true para Pinocchio começar (primeiro turno: !true = false -> Pinocchio)
 
-        // Função para adicionar texto ao story box
-        function addToStory(text) {
-            storyBox.innerHTML += text + '<br>';
-            storyBox.scrollTop = storyBox.scrollHeight;
+        // Funções auxiliares
+        function appendOutput(text) {
+            output.textContent += text + '\n';
+            output.scrollTop = output.scrollHeight;
         }
 
-        // Função para mostrar mensagens sequenciais
-        function showMessages(messages, callback) {
-            currentMessages = messages;
-            messageIndex = 0;
-            enterBtn.style.display = 'block';
-            enterBtn.onclick = () => {
-                if (messageIndex < currentMessages.length) {
-                    addToStory(currentMessages[messageIndex]);
-                    messageIndex++;
-                } else {
-                    enterBtn.style.display = 'none';
-                    if (callback) callback();
-                }
-            };
+        function clearButtons() {
+            buttons.innerHTML = '';
         }
 
-        // Início do jogo
-        const introMessages = [
+        function addButton(text, callback) {
+            const btn = document.createElement('button');
+            btn.textContent = text;
+            btn.onclick = callback;
+            buttons.appendChild(btn);
+        }
+
+        // Lógica do jogo baseada no código Java
+        const mensagensIntro = [
             "-Há muito tempo, Elysdrin era um reino de ouro e glória",
-            "-Hérois caminhavam como lendas vivas",
+            "-Heróis caminhavam como lendas vivas",
             "-Deuses observavam, e os reinos floresciam sob sua luz",
             "-Mas tudo que cresce demais se corrompe",
             "-E em Elysdrin, a queda começou em silêncio",
             "..."
         ];
 
-        const tutorialMessages = [
+        const mensagensTuto = [
             "TUTORIAL - CONTROLES",
             "Pressione 'Q' quando quiser rejeitar uma missão.",
             "Pressione 'E' quando quiser aceitar uma missão."
         ];
 
-        showMessages(introMessages, () => {
-            showMessages(tutorialMessages, () => {
-                startScene1();
-            });
-        });
+        const mensagensCena2 = [
+            "\n-Um estalo vindo pelo ar",
+            "-como uma cobra metálica vindo em sua direção",
+            "-THUNK",
+            "-Uma flecha se crava a dois centímetros de sua cabeça..."
+        ];
 
-        // Cena 1
-        function startScene1() {
-            addToStory("\nSUA ARMADURA COMEÇA A SUSURRAR PARA VOCÊ CONTINUAR AVANÇANDO...");
-            wBtn.style.display = 'block';
-            wBtn.onclick = () => {
-                wBtn.style.display = 'none';
-                addToStory("\nCAMINHANDO PARA FRENTE VOCÊ ATRAVESSA A FLORESTA A QUAL MATOU UM GRUPO DE HOMENS");
-                startScene2();
-            };
+        const mensagensCena2cont = [
+            "\n-Outra flecha corta o ar",
+            "-Dessa vez, bem na altura do peito..."
+        ];
+
+        const mensagensCena3 = [
+            "-Das sombras da vila, algo surge",
+            "-Mecanismos chiando, ferro triturando pedra",
+            "-Movimentos quebrados, como ossos deslocados",
+            "_PINNOCHIO - O Filho Inacabado_",
+            "-Seu braço mecânico goteja óleo e sangue seco",
+            "-Olhos vazios, rasos...",
+            "-A insanidade dissolvendo qualquer humanidade",
+            "-Ele aponta outra flecha improvisada, feita com os restos de corpos da vila",
+            "-Pinocchio sussurra com a voz trêmula...",
+            "'Pa...pai?'",
+            "-Pinocchio começa a tremer, a fúria toma sua forma frágil",
+            "'VOCÊ! VOCÊ ME FEZ ASSIM!'",
+            "-Ele solta uma rajada frenética de flechas, erráticas, desesperadas, como um animal ferido atacando o próprio reflexo",
+            "-Guts ergue a Dragonslayer, o aço negro refletindo uma lua pálida",
+            "A armadura sussurra...",
+            "'Corte. Rasgue. Ele quer morrer.'"
+        ];
+
+        const mensagemCenaFora = [
+            "-A estrada se afunila...",
+            "-O mundo parece morrer ao redor, árvores petrificadas",
+            "-terra rachada como pele queimada, o céu tingido de vermelho enfermo.",
+            "-O vento para, nem insectos, nem pássaros",
+            "-Nada ousa respirar onde os deuses assistem",
+            "-À frente, uma porta colossal cravada",
+            "-Runas queimam como carne viva sobre a sua superfície. A entrada da Arena...",
+            "-Guts caminha com passos pesados, a Dragonslayer arrastando na terra, deixando uma marca profunda",
+            "-como uma cicatriz no mundo.",
+            "-Seu olhar é fixo na porta, até sentir algo...",
+            "-Um corpo parado à beira da entrada, como se o destino o tivesse moldado ali.",
+            "_Vyke, A Voz da Chama Frenética_",
+            "-Imóvel...",
+            "-A vontade da Chama Frenzy é tão nítida em seus olhos, que de longe é impossível ignorar seu brilho ocular.",
+            "-Manto destruído pelo tempo, pele marcada com cicatrizes",
+            "-uma luz febril nos olhos, não como fogo, mas algo insano",
+            "-Ele encara Guts com uma intensidade que parece perfurar a alma.",
+            "-Sem emoção, sem medo - Vyke dá um passo.",
+            "-Guts para. Dois guerreiros que deveriam estar mortos há muito tempo, frente a frente.",
+            "-Guts aperta a espada. A armadura sussurra:",
+            "'Esse é marcado pela chama, mate-o'",
+            "-Vyke avança outro passo - agora a poucos metros de Guts...",
+            "'Se você se aproximar... Eu lhe despedaçarei sem piedade, demônio.'"
+        ];
+
+        // Função principal do jogo
+        function startGame() {
+            appendOutput("Bem-vindo ao Elysdrin RPG!\n");
+            showIntro();
         }
 
-        // Cena 2
-        function startScene2() {
-            addToStory("\nA SUA FRENTE TEM UMA CIDADE TOTALMENTE DESTRUÍDA, COM RUÍNAS POR TODOS OS LADOS");
-            addToStory("DESEJA PASSAR POR ESSA CIDADE?");
-            wBtn.style.display = 'block';
-            aBtn.style.display = 'block';
-            wBtn.onclick = () => {
-                questlineCity = true;
-                wBtn.style.display = 'none';
-                aBtn.style.display = 'none';
-                addToStory("VOCÊ DECIDE ENTRAR NA CIDADE - Kravelheim/Forja de Lamentos");
-                addToStory("\nA VOZ DA ARMADURA MURMURA DENTRO DE SUA MENTE:");
-                addToStory("-Sangue… sangue outra vez. Você nasceu para dilacerar.");
-                addToStory("\nVOCÊ IGNORA A IRONIA DA ARMADURA E CONTINUA ANDANDO EM LINHA RETA");
-
-                const scene2Messages = [
-                    "\n-Um estalo vindo pelo ar",
-                    "-como uma cobra metalica vindo em sua direção",
-                    "-THUNK",
-                    "-Uma flecha se crava a dois centímetros de sua cabeça..."
-                ];
-                showMessages(scene2Messages, () => {
-                    addToStory("'W' PARA CONTINUAR ANDANDO");
-                    wBtn.style.display = 'block';
-                    wBtn.onclick = () => {
-                        wBtn.style.display = 'none';
-                        addToStory("\nVOCÊ DECIDE IGNORAR A FLECHA E CONTINUA ANDANDO PELA CIDADE DESTRUÍDA");
-
-                        const scene2ContMessages = [
-                            "\n-Outra flecha corta o ar",
-                            "-Dessa vez, bem na altura do peito..."
-                        ];
-                        showMessages(scene2ContMessages, () => {
-                            addToStory("Pressione 'S' para desviar.");
-                            sBtn.style.display = 'block';
-                            sBtn.onclick = () => {
-                                sBtn.style.display = 'none';
-                                addToStory("\nVocê se esquiva no último segundo; a flecha passa raspando pelo seu ombro.");
-                                startQuestline();
-                            };
-                        });
-                    };
+        function showIntro() {
+            if (currentMessageIndex < mensagensIntro.length) {
+                appendOutput(mensagensIntro[currentMessageIndex]);
+                clearButtons();
+                addButton("Continuar", () => {
+                    currentMessageIndex++;
+                    showIntro();
                 });
-            };
-            aBtn.onclick = () => {
-                questlineCity = false;
-                wBtn.style.display = 'none';
-                aBtn.style.display = 'none';
-                addToStory("VOCÊ NÃO PASSA PELA CIDADE E DECIDE IR POR FORA");
-                addToStory("\nVocê evita a cidade e segue pela encosta fria ao norte...");
-            };
+            } else {
+                currentMessageIndex = 0;
+                showTutorial();
+            }
         }
 
-        // Questline
-        function startQuestline() {
-            const questMessages = [
-                "-Das sombras da vila, algo surge",
-                "-Mecanismos chiando, ferro triturando pedra",
-                "-Movimentos quebrados,como ossos deslocados",
-                "_PINNOCHIO - O Filho Inacabado_",
-                "-Seu braço mecânico goteja óleo e sangue seco",
-                "-Olhos vazios, rasos...",
-                "-A insanidade dissolvendo qualquer humanidade",
-                "-Ele aponta outra flecha improvisada, feita com os restos de corpos da vila",
-                "-Pinnochio sussurra com a voz tremula...",
-                "'Pa...pai?'",
-                "-Pinocchio começa a tremer,a fúria toma sua forma frágil",
-                "'VOCÊ! VOCÊ ME FEZ ASSIM!'",
-                "-Ele solta uma rajada frenética de flechas, erráticas, desesperadas, como um animal ferido atacando o próprio reflexo",
-                "-Guts ergue a Dragonslayer, o aço negro refletindo uma lua pálida",
-                "A armadura sussurra...",
-                "'Corte. Rasgue. Ele quer morrer.'"
-            ];
-            showMessages(questMessages, () => {
-                addToStory("QUESTLINE SECUNDARIA : MATE PINNOCHIO");
-                addToStory("'E' PARA ACEITAR");
-                addToStory("'Q' PARA RECUSAR");
-                qBtn.style.display = 'block';
-                eBtn.style.display = 'block';
-                qBtn.onclick = () => {
-                    qBtn.style.display = 'none';
-                    eBtn.style.display = 'none';
-                    addToStory("\n<<VOCÊ ESCAPOU>>");
-                };
-                eBtn.onclick = () => {
-                    qBtn.style.display = 'none';
-                    eBtn.style.display = 'none';
-                    addToStory("\n<<QUESTLINE ACEITA - MATE PINNOCHIO>>");
-                    startCombat();
-                };
+        function showTutorial() {
+            if (currentMessageIndex < mensagensTuto.length) {
+                appendOutput(mensagensTuto[currentMessageIndex]);
+                clearButtons();
+                addButton("Continuar", () => {
+                    currentMessageIndex++;
+                    showTutorial();
+                });
+            } else {
+                currentMessageIndex = 0;
+                cena1();
+            }
+        }
+
+        function cena1() {
+            appendOutput("\nSUA ARMADURA COMEÇA A SUSSURRAR PARA VOCÊ CONTINUAR AVANÇANDO...");
+            clearButtons();
+            addButton("Andar para frente", () => {
+                appendOutput("\nCAMINHANDO PARA FRENTE VOCÊ ATRAVESSA A FLORESTA A QUAL MATOU UM GRUPO DE HOMENS");
+                cena2();
             });
         }
 
-        // Combate
-        function startCombat() {
-            combatUI.style.display = 'flex';
-            inCombat = true;
-            let gutsVit = Guts.atributos.vitalidade;
-            let pinocchioVit = Pinocchio.atributos.vitalidade;
+        function cena2() {
+            appendOutput("\nA SUA FRENTE TEM UMA CIDADE TOTALMENTE DESTRUÍDA, COM RUÍNAS POR TODOS OS LADOS");
+            appendOutput("VOCÊ DECIDE ENTRAR NA CIDADE - Kravelheim/Forja de Lamentos");
+            appendOutput("\nA VOZ DA ARMADURA MURMURA DENTRO DE SUA MENTE:");
+            appendOutput("-Sangue… sangue outra vez. Você nasceu para dilacerar.");
+            appendOutput("\nVOCÊ IGNORA A IRONIA DA ARMADURA E CONTINUA ANDANDO EM LINHA RETA");
 
-            rollBtn.onclick = () => {
-                if (vezGuts) {
-                    const roll = dado.roll();
-                    addToStory(`Guts rolou: ${roll}`);
-                    let dano = 0;
-                    if (roll <= 3) {
-                        addToStory("Ataque falhou!");
-                    } else if (roll < 8) {
-                        dano = 2;
-                        addToStory("Acertou! Dano: 2");
-                    } else {
-                        dano = 3;
-                        addToStory("Crítico! Dano: 3");
-                    }
-                    pinocchioVit = Math.max(0, pinocchioVit - dano);
-                    pinocchioHealth.style.width = `${(pinocchioVit / 4) * 100}%`; // Atualizado para 4
-                    addToStory(`Vitalidade de ${Pinocchio.nome}: ${pinocchioVit}`);
-                    if (pinocchioVit <= 0) {
-                        addToStory("\nPinocchio foi derrotado por Guts!");
-                        endCombat();
-                    }
-                } else {
-                    const roll = dado.roll();
-                    addToStory(`Pinocchio rolou: ${roll}`);
-                    let dano = 0;
-                    if (roll <= 3) {
-                        addToStory("Pinocchio errou!");
-                    } else if (roll < 8) {
-                        dano = 1;
-                        addToStory("Pinocchio acertou! Dano: 1");
-                    } else {
-                        dano = 2;
-                        addToStory("Pinocchio acerta um crítico! Dano: 2");
-                    }
-                    gutsVit = Math.max(0, gutsVit - dano);
-                    gutsHealth.style.width = `${(gutsVit / 4) * 100}%`;
-                    addToStory(`Vitalidade de ${Guts.nome}: ${gutsVit}`);
-                    if (gutsVit <= 0) {
-                        addToStory("\nGuts foi derrotado por Pinocchio!");
-                        endCombat();
-                    }
-                }
+            showMessagesCena2();
+        }
+
+        function showMessagesCena2() {
+            if (currentMessageIndex < mensagensCena2.length) {
+                appendOutput(mensagensCena2[currentMessageIndex]);
+                clearButtons();
+                addButton("Continuar", () => {
+                    currentMessageIndex++;
+                    showMessagesCena2();
+                });
+            } else {
+                currentMessageIndex = 0;
+                continuarAndando();
+            }
+        }
+
+        function continuarAndando() {
+            appendOutput("'W' PARA CONTINUAR ANDANDO");
+            clearButtons();
+            addButton("Continuar andando", () => {
+                appendOutput("\nVOCÊ DECIDE IGNORAR A FLECHA E CONTINUA ANDANDO PELA CIDADE DESTRUÍDA");
+                showMessagesCena2cont();
+            });
+        }
+
+        function showMessagesCena2cont() {
+            if (currentMessageIndex < mensagensCena2cont.length) {
+                appendOutput(mensagensCena2cont[currentMessageIndex]);
+                clearButtons();
+                addButton("Continuar", () => {
+                    currentMessageIndex++;
+                    showMessagesCena2cont();
+                });
+            } else {
+                currentMessageIndex = 0;
+                desviar();
+            }
+        }
+
+        function desviar() {
+            clearButtons();
+            addButton("Desviar", () => {
+                appendOutput("\nVocê se esquiva no último segundo; a flecha passa raspando pelo seu ombro.");
+                questlinePinocchio();
+            });
+        }
+
+        function questlinePinocchio() {
+            if (currentMessageIndex < mensagensCena3.length) {
+                appendOutput(mensagensCena3[currentMessageIndex]);
+                clearButtons();
+                addButton("Continuar", () => {
+                    currentMessageIndex++;
+                    questlinePinocchio();
+                });
+            } else {
+                currentMessageIndex = 0;
+                batalhaPinocchio();
+            }
+        }
+
+        function batalhaPinocchio() {
+            appendOutput("QUESTLINE SECUNDÁRIA: MATE PINOCCHIO");
+            clearButtons();
+            addButton("Aceitar", () => {
+                appendOutput("\n<<QUESTLINE ACEITA - MATE PINOCCHIO>>");
+                iniciarBatalha();
+            });
+            addButton("Recusar", () => {
+                appendOutput("\n<<VOCÊ RECUSOU O DESAFIO - VOCÊ ESCAPA DE KRAVELHEIM>>");
+                showMensagemCenaFora();
+            });
+        }
+
+        function iniciarBatalha() {
+            const dado = new Dado(8);
+            let vidaP = Pinocchio.atributos.vitalidade; // Agora 4
+            let vidaG = Guts.atributos.vitalidade;
+            vezGuts = true; // Reset para Pinocchio começar
+
+            function turno() {
                 vezGuts = !vezGuts;
-            };
+                clearButtons();
+                if (vezGuts) {
+                    appendOutput("\nVez de Guts.");
+                    addButton("Rolar dado", () => {
+                        const roll = dado.roll();
+                        appendOutput("Guts rolou: " + roll);
+                        let dano;
+                        if (roll <= 3) {
+                            dano = 0;
+                            appendOutput("Ataque falhou!");
+                        } else if (roll < 8) {
+                            dano = 2;
+                            appendOutput("Acertou! Dano: 2");
+                        } else {
+                            dano = 3;
+                            appendOutput("Crítico! Dano: 3");
+                        }
+                        vidaP = Math.max(0, vidaP - dano);
+                        appendOutput("Vitalidade de " + Pinocchio.nome + ": " + vidaP);
+                        if (vidaP <= 0) {
+                            appendOutput("\nPinocchio foi derrotado por Guts!");
+                            clearButtons(); // Para garantir que não haja mais botões
+                            return;
+                        }
+                        turno();
+                    });
+                } else {
+                    appendOutput("\nVez de Pinocchio.");
+                    addButton("Rolar dado", () => {
+                        const roll = dado.roll();
+                        appendOutput("Pinocchio rolou: " + roll);
+                        let dano;
+                        if (roll <= 3) {
+                            dano = 0;
+                            appendOutput("Pinocchio errou!");
+                        } else if (roll < 8) {
+                            dano = 1;
+                            appendOutput("Pinocchio acertou! Dano: 1");
+                        } else {
+                            dano = 2;
+                            appendOutput("Pinocchio acerta um crítico! Dano: 2");
+                        }
+                        vidaG = Math.max(0, vidaG - dano);
+                        appendOutput("Vitalidade de " + Guts.nome + ": " + vidaG);
+                        if (vidaG <= 0) {
+                            appendOutput("\nGuts foi derrotado por Pinocchio!");
+                            clearButtons(); // Para garantir que não haja mais botões
+                            return;
+                        }
+                        turno();
+                    });
+                }
+            }
+            turno();
         }
 
-        function endCombat() {
-            combatUI.style.display = 'none';
-            inCombat = false;
-            addToStory("Combate terminado. Continue a história...");
+        function showMensagemCenaFora() {
+            if (currentMessageIndex < mensagemCenaFora.length) {
+                appendOutput(mensagemCenaFora[currentMessageIndex]);
+                clearButtons();
+                addButton("Continuar", () => {
+                    currentMessageIndex++;
+                    showMensagemCenaFora();
+                });
+            } else {
+                appendOutput("\nFim da demo. Obrigado por jogar!");
+                clearButtons();
+            }
         }
+
+        // Iniciar o jogo
+        startGame();
     </script>
 </body>
 </html>
