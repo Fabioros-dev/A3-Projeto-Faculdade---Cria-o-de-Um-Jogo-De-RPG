@@ -1,0 +1,413 @@
+<think>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elysdrin: A Queda das Lendas</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            font-family: 'Courier New', monospace; /* Fonte pixelada retro */
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            image-rendering: pixelated;
+        }
+
+        #game-container {
+            width: 800px;
+            height: 600px;
+            border: 4px solid #fff;
+            position: relative;
+            background: linear-gradient(to bottom, #001122, #004400); /* Fundo escuro pixelado */
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #story-box {
+            flex: 1;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.8);
+            border-bottom: 2px solid #fff;
+            font-size: 16px;
+            line-height: 1.5;
+            overflow-y: auto;
+        }
+
+        #input-area {
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        button {
+            background-color: #333;
+            color: #fff;
+            border: 2px solid #fff;
+            padding: 10px 20px;
+            font-size: 14px;
+            cursor: pointer;
+            margin: 0 10px;
+            font-family: 'Courier New', monospace;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+
+        #combat-ui {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .character {
+            margin: 20px;
+            text-align: center;
+        }
+
+        .health-bar {
+            width: 200px;
+            height: 20px;
+            background-color: #333;
+            border: 2px solid #fff;
+            margin: 10px 0;
+        }
+
+        .health-fill {
+            height: 100%;
+            background-color: #0f0;
+            transition: width 0.3s;
+        }
+
+        .sprite {
+            width: 64px;
+            height: 64px;
+            background-color: #f00; /* Placeholder para sprites pixelados */
+            margin: 0 auto;
+            image-rendering: pixelated;
+        }
+
+        /* Sprites simples pixelados (usando CSS para simular) */
+        .guts-sprite { background-color: #8B4513; } /* Marrom para Guts */
+        .pinocchio-sprite { background-color: #696969; } /* Cinza para Pinocchio */
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <div id="story-box"></div>
+        <div id="input-area">
+            <button id="enter-btn">Pressione Enter</button>
+            <button id="w-btn" style="display:none;">W - Andar</button>
+            <button id="a-btn" style="display:none;">A - Dar Volta</button>
+            <button id="s-btn" style="display:none;">S - Desviar</button>
+            <button id="q-btn" style="display:none;">Q - Recusar</button>
+            <button id="e-btn" style="display:none;">E - Aceitar</button>
+        </div>
+        <div id="combat-ui">
+            <div class="character">
+                <div class="sprite guts-sprite"></div>
+                <p>Guts</p>
+                <div class="health-bar"><div class="health-fill" id="guts-health" style="width:100%;"></div></div>
+            </div>
+            <div class="character">
+                <div class="sprite pinocchio-sprite"></div>
+                <p>Pinocchio</p>
+                <div class="health-bar"><div class="health-fill" id="pinocchio-health" style="width:100%;"></div></div>
+            </div>
+            <button id="roll-btn">Rolar Dado</button>
+        </div>
+    </div>
+
+    <script>
+        // Simulação das classes Java em JS
+        class Atributos {
+            constructor(vitalidade, defesa, forca, velocidade, armadura) {
+                this.vitalidade = vitalidade;
+                this.defesa = defesa;
+                this.forca = forca;
+                this.velocidade = velocidade;
+                this.armadura = armadura;
+            }
+        }
+
+        class Personagem {
+            constructor(nome, origem, idade) {
+                this.nome = nome;
+                this.origem = origem;
+                this.idade = idade;
+                this.atributos = null;
+            }
+            setAtributos(atributos) {
+                this.atributos = atributos;
+            }
+        }
+
+        class Cavaleiro extends Personagem {}
+        class Flecheiro extends Personagem {}
+        class Valquiria extends Personagem {}
+
+        class Dado {
+            constructor(lados) {
+                this.lados = lados;
+            }
+            roll() {
+                return Math.floor(Math.random() * this.lados) + 1;
+            }
+        }
+
+        // Instâncias dos personagens (atualizado com Pinocchio vitalidade 4)
+        const Maria = new Cavaleiro("Maria", "Sangravia - Vale das Cruzes", 22);
+        Maria.setAtributos(new Atributos(4, 1, 3, 5, 0));
+
+        const Guts = new Cavaleiro("Guts", "Valdarion", 24);
+        Guts.setAtributos(new Atributos(4, 4, 4, 1, 2));
+
+        const Vyke = new Cavaleiro("Vyke", "Sol'Rathor - Cidade Abençoada", 23);
+        Vyke.setAtributos(new Atributos(3, 4, 4, 3, 1));
+
+        const Pinocchio = new Flecheiro("Pinocchio", "Kravelheim - Forja de Lamentos", 16);
+        Pinocchio.setAtributos(new Atributos(4, 1, 2, 4, 0)); // Atualizado para 4
+
+        const Artorias = new Cavaleiro("Artorias", "Nethros Abyss - Poço da Escuridão", 26);
+        Artorias.setAtributos(new Atributos(4, 3, 4, 4, 1));
+
+        const Malenia = new Valquiria("Malenia", "Elyndor - Árvore Sacra", "");
+        Malenia.setAtributos(new Atributos(5, 4, 4, 5, 1));
+
+        // Elementos DOM
+        const storyBox = document.getElementById('story-box');
+        const enterBtn = document.getElementById('enter-btn');
+        const wBtn = document.getElementById('w-btn');
+        const aBtn = document.getElementById('a-btn');
+        const sBtn = document.getElementById('s-btn');
+        const qBtn = document.getElementById('q-btn');
+        const eBtn = document.getElementById('e-btn');
+        const combatUI = document.getElementById('combat-ui');
+        const rollBtn = document.getElementById('roll-btn');
+        const gutsHealth = document.getElementById('guts-health');
+        const pinocchioHealth = document.getElementById('pinocchio-health');
+
+        // Estado do jogo
+        let currentMessages = [];
+        let messageIndex = 0;
+        let questlineCity = false;
+        let inCombat = false;
+        let vezGuts = true;
+        let dado = new Dado(8);
+
+        // Função para adicionar texto ao story box
+        function addToStory(text) {
+            storyBox.innerHTML += text + '<br>';
+            storyBox.scrollTop = storyBox.scrollHeight;
+        }
+
+        // Função para mostrar mensagens sequenciais
+        function showMessages(messages, callback) {
+            currentMessages = messages;
+            messageIndex = 0;
+            enterBtn.style.display = 'block';
+            enterBtn.onclick = () => {
+                if (messageIndex < currentMessages.length) {
+                    addToStory(currentMessages[messageIndex]);
+                    messageIndex++;
+                } else {
+                    enterBtn.style.display = 'none';
+                    if (callback) callback();
+                }
+            };
+        }
+
+        // Início do jogo
+        const introMessages = [
+            "-Há muito tempo, Elysdrin era um reino de ouro e glória",
+            "-Hérois caminhavam como lendas vivas",
+            "-Deuses observavam, e os reinos floresciam sob sua luz",
+            "-Mas tudo que cresce demais se corrompe",
+            "-E em Elysdrin, a queda começou em silêncio",
+            "..."
+        ];
+
+        const tutorialMessages = [
+            "TUTORIAL - CONTROLES",
+            "Pressione 'Q' quando quiser rejeitar uma missão.",
+            "Pressione 'E' quando quiser aceitar uma missão."
+        ];
+
+        showMessages(introMessages, () => {
+            showMessages(tutorialMessages, () => {
+                startScene1();
+            });
+        });
+
+        // Cena 1
+        function startScene1() {
+            addToStory("\nSUA ARMADURA COMEÇA A SUSURRAR PARA VOCÊ CONTINUAR AVANÇANDO...");
+            wBtn.style.display = 'block';
+            wBtn.onclick = () => {
+                wBtn.style.display = 'none';
+                addToStory("\nCAMINHANDO PARA FRENTE VOCÊ ATRAVESSA A FLORESTA A QUAL MATOU UM GRUPO DE HOMENS");
+                startScene2();
+            };
+        }
+
+        // Cena 2
+        function startScene2() {
+            addToStory("\nA SUA FRENTE TEM UMA CIDADE TOTALMENTE DESTRUÍDA, COM RUÍNAS POR TODOS OS LADOS");
+            addToStory("DESEJA PASSAR POR ESSA CIDADE?");
+            wBtn.style.display = 'block';
+            aBtn.style.display = 'block';
+            wBtn.onclick = () => {
+                questlineCity = true;
+                wBtn.style.display = 'none';
+                aBtn.style.display = 'none';
+                addToStory("VOCÊ DECIDE ENTRAR NA CIDADE - Kravelheim/Forja de Lamentos");
+                addToStory("\nA VOZ DA ARMADURA MURMURA DENTRO DE SUA MENTE:");
+                addToStory("-Sangue… sangue outra vez. Você nasceu para dilacerar.");
+                addToStory("\nVOCÊ IGNORA A IRONIA DA ARMADURA E CONTINUA ANDANDO EM LINHA RETA");
+
+                const scene2Messages = [
+                    "\n-Um estalo vindo pelo ar",
+                    "-como uma cobra metalica vindo em sua direção",
+                    "-THUNK",
+                    "-Uma flecha se crava a dois centímetros de sua cabeça..."
+                ];
+                showMessages(scene2Messages, () => {
+                    addToStory("'W' PARA CONTINUAR ANDANDO");
+                    wBtn.style.display = 'block';
+                    wBtn.onclick = () => {
+                        wBtn.style.display = 'none';
+                        addToStory("\nVOCÊ DECIDE IGNORAR A FLECHA E CONTINUA ANDANDO PELA CIDADE DESTRUÍDA");
+
+                        const scene2ContMessages = [
+                            "\n-Outra flecha corta o ar",
+                            "-Dessa vez, bem na altura do peito..."
+                        ];
+                        showMessages(scene2ContMessages, () => {
+                            addToStory("Pressione 'S' para desviar.");
+                            sBtn.style.display = 'block';
+                            sBtn.onclick = () => {
+                                sBtn.style.display = 'none';
+                                addToStory("\nVocê se esquiva no último segundo; a flecha passa raspando pelo seu ombro.");
+                                startQuestline();
+                            };
+                        });
+                    };
+                });
+            };
+            aBtn.onclick = () => {
+                questlineCity = false;
+                wBtn.style.display = 'none';
+                aBtn.style.display = 'none';
+                addToStory("VOCÊ NÃO PASSA PELA CIDADE E DECIDE IR POR FORA");
+                addToStory("\nVocê evita a cidade e segue pela encosta fria ao norte...");
+            };
+        }
+
+        // Questline
+        function startQuestline() {
+            const questMessages = [
+                "-Das sombras da vila, algo surge",
+                "-Mecanismos chiando, ferro triturando pedra",
+                "-Movimentos quebrados,como ossos deslocados",
+                "_PINNOCHIO - O Filho Inacabado_",
+                "-Seu braço mecânico goteja óleo e sangue seco",
+                "-Olhos vazios, rasos...",
+                "-A insanidade dissolvendo qualquer humanidade",
+                "-Ele aponta outra flecha improvisada, feita com os restos de corpos da vila",
+                "-Pinnochio sussurra com a voz tremula...",
+                "'Pa...pai?'",
+                "-Pinocchio começa a tremer,a fúria toma sua forma frágil",
+                "'VOCÊ! VOCÊ ME FEZ ASSIM!'",
+                "-Ele solta uma rajada frenética de flechas, erráticas, desesperadas, como um animal ferido atacando o próprio reflexo",
+                "-Guts ergue a Dragonslayer, o aço negro refletindo uma lua pálida",
+                "A armadura sussurra...",
+                "'Corte. Rasgue. Ele quer morrer.'"
+            ];
+            showMessages(questMessages, () => {
+                addToStory("QUESTLINE SECUNDARIA : MATE PINNOCHIO");
+                addToStory("'E' PARA ACEITAR");
+                addToStory("'Q' PARA RECUSAR");
+                qBtn.style.display = 'block';
+                eBtn.style.display = 'block';
+                qBtn.onclick = () => {
+                    qBtn.style.display = 'none';
+                    eBtn.style.display = 'none';
+                    addToStory("\n<<VOCÊ ESCAPOU>>");
+                };
+                eBtn.onclick = () => {
+                    qBtn.style.display = 'none';
+                    eBtn.style.display = 'none';
+                    addToStory("\n<<QUESTLINE ACEITA - MATE PINNOCHIO>>");
+                    startCombat();
+                };
+            });
+        }
+
+        // Combate
+        function startCombat() {
+            combatUI.style.display = 'flex';
+            inCombat = true;
+            let gutsVit = Guts.atributos.vitalidade;
+            let pinocchioVit = Pinocchio.atributos.vitalidade;
+
+            rollBtn.onclick = () => {
+                if (vezGuts) {
+                    const roll = dado.roll();
+                    addToStory(`Guts rolou: ${roll}`);
+                    let dano = 0;
+                    if (roll <= 3) {
+                        addToStory("Ataque falhou!");
+                    } else if (roll < 8) {
+                        dano = 2;
+                        addToStory("Acertou! Dano: 2");
+                    } else {
+                        dano = 3;
+                        addToStory("Crítico! Dano: 3");
+                    }
+                    pinocchioVit = Math.max(0, pinocchioVit - dano);
+                    pinocchioHealth.style.width = `${(pinocchioVit / 4) * 100}%`; // Atualizado para 4
+                    addToStory(`Vitalidade de ${Pinocchio.nome}: ${pinocchioVit}`);
+                    if (pinocchioVit <= 0) {
+                        addToStory("\nPinocchio foi derrotado por Guts!");
+                        endCombat();
+                    }
+                } else {
+                    const roll = dado.roll();
+                    addToStory(`Pinocchio rolou: ${roll}`);
+                    let dano = 0;
+                    if (roll <= 3) {
+                        addToStory("Pinocchio errou!");
+                    } else if (roll < 8) {
+                        dano = 1;
+                        addToStory("Pinocchio acertou! Dano: 1");
+                    } else {
+                        dano = 2;
+                        addToStory("Pinocchio acerta um crítico! Dano: 2");
+                    }
+                    gutsVit = Math.max(0, gutsVit - dano);
+                    gutsHealth.style.width = `${(gutsVit / 4) * 100}%`;
+                    addToStory(`Vitalidade de ${Guts.nome}: ${gutsVit}`);
+                    if (gutsVit <= 0) {
+                        addToStory("\nGuts foi derrotado por Pinocchio!");
+                        endCombat();
+                    }
+                }
+                vezGuts = !vezGuts;
+            };
+        }

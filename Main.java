@@ -41,7 +41,7 @@ public class Main  {
         // Pinocchio (sem armadura)
         Flecheiro Pinocchio = new Flecheiro("Pinocchio", "Kravelheim - Forja de Lamentos", 16);
         Pinocchio.setAtributos(new Atributos(
-                3, // Vitalidade B = 3
+                4, // Vitalidade B = 3
                 1, // Defesa D = 1
                 2, // Força C = 2
                 4, // Velocidade A = 4
@@ -239,51 +239,74 @@ public class Main  {
                 System.out.println("'Q' PARA RECUSAR");
                 String decisaoQuest = scan.nextLine().trim().toUpperCase();
 
-                if (decisaoQuest.equalsIgnoreCase("E")) {
+                if (decisaoQuest.equals("E")) {
                     System.out.println("\n<<QUESTLINE ACEITA - MATE PINNOCHIO>>");
+                    Dado dado = new Dado(8);
 
-                    dado8 = new Dado(8);
-                    int resultado = dado8.roll();
-                    System.out.println("Resultado do dado: " + resultado);
-                    
-                    // Pega a vitalidade atual antes do dano
-                    int vitalidadeAtual = Pinocchio.getAtributos().getVitalidade();
-                    
-                    if (resultado <= 3) {
-                        System.out.println("VOCÊ ERROU O ATAQUE");
-                        System.out.println("VEZ DE PINNOCHIO");
-                        break;
-                    } else if (resultado > 3 && resultado < 8) {
-                        // Causa 2 pontos de dano
-                        int novaPontosVida = Math.max(0, vitalidadeAtual - 2);
-                        Pinocchio.getAtributos().setVitalidade(novaPontosVida);
-                        System.out.println("Causou 2 pontos de dano!");
-                        System.out.println("Vitalidade atual de Pinocchio: " + novaPontosVida);
-                        break;
-                    } else if (resultado == 8) {
-                        // Causa 3 pontos de dano
-                        int novaPontosVida = Math.max(0, vitalidadeAtual - 3);
-                        Pinocchio.getAtributos().setVitalidade(novaPontosVida);
-                        System.out.println("Golpe Crítico! Causou 3 pontos de dano!");
-                        System.out.println("Vitalidade atual de Pinocchio: " + novaPontosVida);
-                        break;
+                    // Alternância de turnos: true = vez do Guts, false = vez do Pinocchio
+                    boolean vezGuts = true;
+                    while (true) {
+                        if (vezGuts) {
+                            System.out.println("\nVez de Guts. Pressione Enter para rolar o dado.");
+                            scan.nextLine();
+                            int roll = dado.roll();
+                            System.out.println("Guts rolou: " + roll);
+                            int dano;
+                            if (roll <= 3) {
+                                dano = 0;
+                                System.out.println("Ataque falhou!");
+                            } else if (roll < 8) {
+                                dano = 2;
+                                System.out.println("Acertou! Dano: 2");
+                            } else { // roll == 8
+                                dano = 3;
+                                System.out.println("Crítico! Dano: 3");
+                            }
+                            // Aplica dano em Pinocchio
+                            int vidaP = Math.max(0, Pinocchio.getAtributos().getVitalidade() - dano);
+                            Pinocchio.getAtributos().setVitalidade(vidaP);
+                            System.out.println("Vitalidade de " + Pinocchio.getNome() + ": " + vidaP);
+                            if (vidaP <= 0) {
+                                System.out.println("\nPinocchio foi derrotado por Guts!");
+                                break;
+                            }
+                        } else {
+                            System.out.println("\nVez de Pinocchio. Pressione Enter para rolar o dado.");
+                            scan.nextLine();
+                            int roll = dado.roll();
+                            System.out.println("Pinocchio rolou: " + roll);
+                            int dano;
+                            if (roll <= 3) {
+                                dano = 0;
+                                System.out.println("Pinocchio errou!");
+                            } else if (roll < 8) {
+                                dano = 2;
+                                System.out.println("Pinocchio acertou! Dano: 1");
+                            } else {
+                                dano = 3;
+                                System.out.println("Pinocchio acerta um crítico! Dano: 2");
+                            }
+                            // Aplica dano em Guts
+                            int vidaG = Math.max(0, Guts.getAtributos().getVitalidade() - dano);
+                            Guts.getAtributos().setVitalidade(vidaG);
+                            System.out.println("Vitalidade de " + Guts.getNome() + ": " + vidaG);
+                            if (vidaG <= 0) {
+                                System.out.println("\nGuts foi derrotado por Pinocchio!");
+                                break;
+                            }
+                        }
+                        // alterna turno
+                        vezGuts = !vezGuts;
                     }
 
-                    // Verifica se Pinocchio foi derrotado
-                    if (Pinocchio.getAtributos().getVitalidade() <= 0) {
-                        System.out.println("\nPinocchio foi derrotado!");
-                        break;
-                    }
-
+                    // combate terminou, segue para próxima cena (loop de quest terminado)
                     break;
-                } else if (decisaoQuest.equalsIgnoreCase("Q")) {
+                } else if (decisaoQuest.equals("Q")) {
                     System.out.println("\n<<VOCÊ ESCAPOU>>");
-
                     break;
                 } else {
                     System.out.println("Pressione 'E' para aceitar ou 'Q' para recusar.");
                 }
-
             }
         } else {
             System.out.println("\nVocê evita a cidade e segue pela encosta fria ao norte...");
