@@ -1,4 +1,3 @@
-package src;
 
 import java.util.Scanner;
 
@@ -30,12 +29,12 @@ public class Main {
 
         // INTRO
         String[] mensagens = {
-            "-Há muito tempo, Elysdrin era um reino de ouro e glória",
-            "-Heróis caminhavam como lendas vivas",
-            "-Deuses observavam, e os reinos floresciam sob sua luz",
-            "-Mas tudo que cresce demais se corrompe",
-            "-E em Elysdrin, a queda começou em silêncio",
-            "..."
+                "-Há muito tempo, Elysdrin era um reino de ouro e glória",
+                "-Heróis caminhavam como lendas vivas",
+                "-Deuses observavam, e os reinos floresciam sob sua luz",
+                "-Mas tudo que cresce demais se corrompe",
+                "-E em Elysdrin, a queda começou em silêncio",
+                "..."
         };
 
         for (String msg : mensagens) {
@@ -46,9 +45,9 @@ public class Main {
 
         // TUTORIAL
         String[] mensagensTuto = {
-            "TUTORIAL - CONTROLES",
-            "Pressione 'Q' quando quiser rejeitar uma missão.",
-            "Pressione 'E' quando quiser aceitar uma missão."
+                "TUTORIAL - CONTROLES",
+                "Pressione 'Q' quando quiser rejeitar uma missão.",
+                "Pressione 'E' quando quiser aceitar uma missão."
         };
 
         for (String msg : mensagensTuto) {
@@ -64,7 +63,8 @@ public class Main {
             String movimento = scan.nextLine().trim().toUpperCase();
 
             if (movimento.equals("W")) {
-                System.out.println("\nCAMINHANDO PARA FRENTE VOCÊ ATRAVESSA A FLORESTA A QUAL MATOU UM GRUPO DE HOMENS");
+                System.out
+                        .println("\nCAMINHANDO PARA FRENTE VOCÊ ATRAVESSA A FLORESTA A QUAL MATOU UM GRUPO DE HOMENS");
 
                 // CENA 2 (Entrada obrigatória na cidade)
                 System.out.println("\nA SUA FRENTE TEM UMA CIDADE TOTALMENTE DESTRUÍDA, COM RUÍNAS POR TODOS OS LADOS");
@@ -75,10 +75,10 @@ public class Main {
                 System.out.println("\nVOCÊ IGNORA A IRONIA DA ARMADURA E CONTINUA ANDANDO EM LINHA RETA");
 
                 String[] mensagensCena2 = {
-                    "\n-Um estalo vindo pelo ar",
-                    "-como uma cobra metálica vindo em sua direção",
-                    "-THUNK",
-                    "-Uma flecha se crava a dois centímetros de sua cabeça..."
+                        "\n-Um estalo vindo pelo ar",
+                        "-como uma cobra metálica vindo em sua direção",
+                        "-THUNK",
+                        "-Uma flecha se crava a dois centímetros de sua cabeça..."
                 };
 
                 for (String msg : mensagensCena2) {
@@ -96,8 +96,8 @@ public class Main {
                         System.out.println("\nVOCÊ DECIDE IGNORAR A FLECHA E CONTINUA ANDANDO PELA CIDADE DESTRUÍDA");
 
                         String[] mensagensCena2cont = {
-                            "\n-Outra flecha corta o ar",
-                            "-Dessa vez, bem na altura do peito..."
+                                "\n-Outra flecha corta o ar",
+                                "-Dessa vez, bem na altura do peito..."
                         };
 
                         for (String msg : mensagensCena2cont) {
@@ -111,7 +111,8 @@ public class Main {
                             System.out.println("Pressione 'S' para desviar.");
                             String desviar = scan.nextLine().trim().toUpperCase();
                             if (desviar.equals("S")) {
-                                System.out.println("\nVocê se esquiva no último segundo; a flecha passa raspando pelo seu ombro.");
+                                System.out.println(
+                                        "\nVocê se esquiva no último segundo; a flecha passa raspando pelo seu ombro.");
                                 break;
                             } else {
                                 System.out.println("Entrada inválida. Pressione 'S' para desviar.");
@@ -131,22 +132,22 @@ public class Main {
 
         // QUESTLINE - PINOCCHIO
         String[] mensagensCena3 = {
-            "-Das sombras da vila, algo surge",
-            "-Mecanismos chiando, ferro triturando pedra",
-            "-Movimentos quebrados, como ossos deslocados",
-            "_PINNOCHIO - O Filho Inacabado_",
-            "-Seu braço mecânico goteja óleo e sangue seco",
-            "-Olhos vazios, rasos...",
-            "-A insanidade dissolvendo qualquer humanidade",
-            "-Ele aponta outra flecha improvisada, feita com os restos de corpos da vila",
-            "-Pinocchio sussurra com a voz trêmula...",
-            "'Pa...pai?'",
-            "-Pinocchio começa a tremer, a fúria toma sua forma frágil",
-            "'VOCÊ! VOCÊ ME FEZ ASSIM!'",
-            "-Ele solta uma rajada frenética de flechas, erráticas, desesperadas, como um animal ferido atacando o próprio reflexo",
-            "-Guts ergue a Dragonslayer, o aço negro refletindo uma lua pálida",
-            "A armadura sussurra...",
-            "'Corte. Rasgue. Ele quer morrer.'"
+                "-Das sombras da vila, algo surge",
+                "-Mecanismos chiando, ferro triturando pedra",
+                "-Movimentos quebrados, como ossos deslocados",
+                "_PINNOCHIO - O Filho Inacabado_",
+                "-Seu braço mecânico goteja óleo e sangue seco",
+                "-Olhos vazios, rasos...",
+                "-A insanidade dissolvendo qualquer humanidade",
+                "-Ele aponta outra flecha improvisada, feita com os restos de corpos da vila",
+                "-Pinocchio sussurra com a voz trêmula...",
+                "'Pa...pai?'",
+                "-Pinocchio começa a tremer, a fúria toma sua forma frágil",
+                "'VOCÊ! VOCÊ ME FEZ ASSIM!'",
+                "-Ele solta uma rajada frenética de flechas, erráticas, desesperadas, como um animal ferido atacando o próprio reflexo",
+                "-Guts ergue a Dragonslayer, o aço negro refletindo uma lua pálida",
+                "A armadura sussurra...",
+                "'Corte. Rasgue. Ele quer morrer.'"
         };
 
         for (String msg : mensagensCena3) {
@@ -158,7 +159,7 @@ public class Main {
         // BATALHA PINOCCHIO
         boolean questlineConcluida = false;
         boolean aceitouQuestPinocchio = false;
-        
+
         // Pergunta se aceita ou recusa a quest
         while (true) {
             System.out.println("QUESTLINE SECUNDÁRIA: MATE PINOCCHIO");
@@ -182,8 +183,7 @@ public class Main {
 
         // BATALHA CONTRA PINOCCHIO (só entra se aceitou)
         boolean primeiraBatalha = true;
-        lutaP:
-        while (aceitouQuestPinocchio && !questlineConcluida) {
+        lutaP: while (aceitouQuestPinocchio && !questlineConcluida) {
             if (primeiraBatalha) {
                 System.out.println("\n<<QUESTLINE ACEITA - MATE PINOCCHIO>>");
                 primeiraBatalha = false;
@@ -193,7 +193,7 @@ public class Main {
             // Restaura vida de ambos no início da batalha (checkpoint)
             Guts.getAtributos().setVitalidade(4);
             Pinocchio.getAtributos().setVitalidade(3);
-            
+
             Dado dado = new Dado(8);
 
             boolean vezGuts2 = false;
@@ -248,7 +248,7 @@ public class Main {
                         System.out.println("<<CHECKPOINT - Voltando ao início da batalha com vida cheia>>");
                         System.out.println("<<Pressione Enter para continuar>>");
                         scan.nextLine();
-                        
+
                         // Restaura vida de ambos (checkpoint)
                         Guts.getAtributos().setVitalidade(4);
                         Pinocchio.getAtributos().setVitalidade(4);
@@ -289,29 +289,29 @@ public class Main {
         Vyke.getAtributos().setVitalidade(4);
 
         String[] mensagemCenaFora = {
-            "-A estrada se afunila...",
-            "-O mundo parece morrer ao redor, árvores petrificadas",
-            "-terra rachada como pele queimada, o céu tingido de vermelho enfermo.",
-            "-O vento para, nem insectos, nem pássaros",
-            "-Nada ousa respirar onde os deuses assistem",
-            "-À frente, uma porta colossal cravada",
-            "-Runas queimam como carne viva sobre a sua superfície. A entrada da Arena...",
-            "-Guts caminha com passos pesados, a Dragonslayer arrastando na terra, deixando uma marca profunda",
-            "-como uma cicatriz no mundo.",
-            "-Seu olhar é fixo na porta, até sentir algo...",
-            "-Um corpo parado à beira da entrada, como se o destino o tivesse moldado ali.",
-            "_Vyke, A Voz da Chama Frenética_",
-            "-Imóvel...",
-            "-A vontade da Chama Frenzy é tão nítida em seus olhos, que de longe é impossível ignorar seu brilho ocular.",
-            "-Manto destruído pelo tempo, pele marcada com cicatrizes",
-            "-uma luz febril nos olhos, não como fogo, mas algo insano",
-            "-Ele encara Guts com uma intensidade que parece perfurar a alma.",
-            "-Sem emoção, sem medo - Vyke dá um passo.",
-            "-Guts para. Dois guerreiros que deveriam estar mortos há muito tempo, frente a frente.",
-            "-Guts aperta a espada. A armadura sussurra:",
-            "'Esse é marcado pela chama, mate-o'",
-            "-Vyke avança outro passo - agora a poucos metros de Guts...",
-            "'Se você se aproximar... Eu lhe despedaçarei sem piedade, demônio.'"
+                "-A estrada se afunila...",
+                "-O mundo parece morrer ao redor, árvores petrificadas",
+                "-terra rachada como pele queimada, o céu tingido de vermelho enfermo.",
+                "-O vento para, nem insectos, nem pássaros",
+                "-Nada ousa respirar onde os deuses assistem",
+                "-À frente, uma porta colossal cravada",
+                "-Runas queimam como carne viva sobre a sua superfície. A entrada da Arena...",
+                "-Guts caminha com passos pesados, a Dragonslayer arrastando na terra, deixando uma marca profunda",
+                "-como uma cicatriz no mundo.",
+                "-Seu olhar é fixo na porta, até sentir algo...",
+                "-Um corpo parado à beira da entrada, como se o destino o tivesse moldado ali.",
+                "_Vyke, A Voz da Chama Frenética_",
+                "-Imóvel...",
+                "-A vontade da Chama Frenzy é tão nítida em seus olhos, que de longe é impossível ignorar seu brilho ocular.",
+                "-Manto destruído pelo tempo, pele marcada com cicatrizes",
+                "-uma luz febril nos olhos, não como fogo, mas algo insano",
+                "-Ele encara Guts com uma intensidade que parece perfurar a alma.",
+                "-Sem emoção, sem medo - Vyke dá um passo.",
+                "-Guts para. Dois guerreiros que deveriam estar mortos há muito tempo, frente a frente.",
+                "-Guts aperta a espada. A armadura sussurra:",
+                "'Esse é marcado pela chama, mate-o'",
+                "-Vyke avança outro passo - agora a poucos metros de Guts...",
+                "'Se você se aproximar... Eu lhe despedaçarei sem piedade, demônio.'"
         };
 
         boolean questVyke = true;
@@ -321,8 +321,7 @@ public class Main {
             System.out.println("<<Pressione Enter para continuar>>");
             scan.nextLine();
         }
-        lutaV:
-        while (true) {
+        lutaV: while (true) {
             System.out.println("QUESTLINE : MATE VYKE");
             System.out.println("'W' PARA AVANÇAR");
             String avancarVyke = scan.nextLine().trim().toUpperCase();
@@ -381,7 +380,7 @@ public class Main {
                             System.out.println("<<CHECKPOINT - Voltando ao início da batalha com vida cheia>>");
                             System.out.println("<<Pressione Enter para continuar>>");
                             scan.nextLine();
-                            
+
                             // Restaura vida de ambos (checkpoint)
                             Guts.getAtributos().setVitalidade(4);
                             Vyke.getAtributos().setVitalidade(4);
@@ -397,7 +396,8 @@ public class Main {
                 System.out.println("Pressione 'W' para avançar.");
             }
 
-        } if (questVyke) {
+        }
+        if (questVyke) {
             while (true) {
                 System.out.println("USAR DEVOUR HOPE?");
                 System.out.println("'E' PARA USAR");
@@ -419,32 +419,33 @@ public class Main {
                 }
 
             }
-        } String[] mensagemIntroColiseu = {
-            "-Guts entra na arena. O mundo inteiro segura o fôlego",
-            "-A porta se fecha atrás dele com um baque que ecoa como uma sentença.",
-            "-À frente, o chão é terra seca misturada com sangue antigo — tão denso que parece tinta de carne.",
-            "-A arena é gigantesca, construída não por mãos humanas,",
-            "-mas por algo maior, cruel, orgulhoso.",
-            "-A Soberania Divina - os deuses e seus servos - sentam-se no alto, em tronos corroído. ",
-            "-Não são belos. Nem santos.",
-            "-São formas distorcidas de arrogância eterna, com olhos famintos e risos feitos de trovão e sofrimento.",
-            "-Eles não esperam a luta,Eles exigem um sacrifício.",
-            "-Um rugido coletivo, misto de vozes humanas e divinas, cruel, selvagem, sedento.",
-            "-Milhares gritam como se o mundo estivesse queimando",
-            "-O ar vibra. A arena treme. A razão morre ali.",
-            "-Guts caminha ao centro.A Dragonslayer arrasta, riscando o solo como um túmulo sendo aberto.",
-            "-A segunda porta se abre...",
-            "-Do outro lado da arena, Maria entra.",
-            "-seu olhar… ardente, inabalável.",
-            "-Ela avança com passos firmes, espada firme na mão — aquela herança ensanguentada que definiu seu destino.",
-            "-O brasão queimado de sua família ainda marcado no peito da armadura gasta.",
-            "-Uma troca de olhares...",
-            "-Não há ódio imediato — apenas reconhecimento.",
-            "-Dois monstros moldados pela tragédia caminhando para um palco feito para destruí-los.",
-            "-Maria respira fundo.Não de medo.Mas determinação.",
-            "-A Armadura Berserker pulsa, tentando tomar Guts, empurrá-lo à violência automática.",
-            "-Guts aperta o cabo da espada.Maria firma a postura com a lâmina à frente.E então...",
-            "-A primeira partícula de poeira cai no chão.",
+        }
+        String[] mensagemIntroColiseu = {
+                "-Guts entra na arena. O mundo inteiro segura o fôlego",
+                "-A porta se fecha atrás dele com um baque que ecoa como uma sentença.",
+                "-À frente, o chão é terra seca misturada com sangue antigo — tão denso que parece tinta de carne.",
+                "-A arena é gigantesca, construída não por mãos humanas,",
+                "-mas por algo maior, cruel, orgulhoso.",
+                "-A Soberania Divina - os deuses e seus servos - sentam-se no alto, em tronos corroído. ",
+                "-Não são belos. Nem santos.",
+                "-São formas distorcidas de arrogância eterna, com olhos famintos e risos feitos de trovão e sofrimento.",
+                "-Eles não esperam a luta,Eles exigem um sacrifício.",
+                "-Um rugido coletivo, misto de vozes humanas e divinas, cruel, selvagem, sedento.",
+                "-Milhares gritam como se o mundo estivesse queimando",
+                "-O ar vibra. A arena treme. A razão morre ali.",
+                "-Guts caminha ao centro.A Dragonslayer arrasta, riscando o solo como um túmulo sendo aberto.",
+                "-A segunda porta se abre...",
+                "-Do outro lado da arena, Maria entra.",
+                "-seu olhar… ardente, inabalável.",
+                "-Ela avança com passos firmes, espada firme na mão — aquela herança ensanguentada que definiu seu destino.",
+                "-O brasão queimado de sua família ainda marcado no peito da armadura gasta.",
+                "-Uma troca de olhares...",
+                "-Não há ódio imediato — apenas reconhecimento.",
+                "-Dois monstros moldados pela tragédia caminhando para um palco feito para destruí-los.",
+                "-Maria respira fundo.Não de medo.Mas determinação.",
+                "-A Armadura Berserker pulsa, tentando tomar Guts, empurrá-lo à violência automática.",
+                "-Guts aperta o cabo da espada.Maria firma a postura com a lâmina à frente.E então...",
+                "-A primeira partícula de poeira cai no chão.",
 
         };
 
@@ -453,19 +454,147 @@ public class Main {
             System.out.println("<<Pressione Enter para continuar>>");
             scan.nextLine();
         }
-
         boolean lutaMaria = true;
+        int publico = 100; // público inicial (em % da lotação da arena)
+
         while (true) {
             System.out.println("QUESTLINE : MATE MARIA");
             System.out.println("<<PRESSIONE ENTER PARA CONTINUAR>>");
-            
-            
-            
+            scan.nextLine();
+
+            Dado dado = new Dado(8);
+
+            // Restaura vida (checkpoint inicial)
+            Guts.getAtributos().setVitalidade(4);
+            Maria.getAtributos().setVitalidade(4);
+
+            boolean vezGuts4;
+            if (Guts.getAtributos().getVelocidade() >= Maria.getAtributos().getVelocidade()) {
+                vezGuts4 = true;
+                System.out.println("\nGuts avança primeiro, sua força supera a hesitação.");
+            } else {
+                vezGuts4 = false;
+                System.out.println("\nMaria inicia o combate! Sua velocidade é superior!");
+            }
+
+            lutaM: while (true) {
+                boolean houveMorteNoTurno = false;
+
+                // --- TURNO DE GUTS ---
+                if (vezGuts4) {
+                    System.out.println("\nVez de Guts. Pressione Enter para rolar o dado.");
+                    scan.nextLine();
+                    int roll = dado.roll();
+                    System.out.println("Guts rolou: " + roll);
+
+                    int dano;
+                    if (roll <= 3) {
+                        dano = 0;
+                        System.out.println("Ataque falhou!");
+                    } else if (roll < 8) {
+                        dano = 2;
+                        System.out.println("Acertou! Dano: 2");
+                    } else {
+                        dano = 3;
+                        System.out.println("Crítico! Dano: 3");
+                    }
+
+                    int vidaM = Math.max(0, Maria.getAtributos().getVitalidade() - dano);
+                    Maria.getAtributos().setVitalidade(vidaM);
+                    System.out.println("Vitalidade de " + Maria.getNome() + ": " + vidaM);
+
+                    if (vidaM <= 0) {
+                        System.out.println("\nMaria cai de joelhos. Sua espada escapa de suas mãos...");
+                        System.out.println("A plateia ruge em êxtase insano!");
+                        publico = Math.min(200, publico + 25); // público cresce com o sangue
+                        System.out.println("O público aumenta para " + publico + "% da capacidade!");
+                        houveMorteNoTurno = true;
+                        System.out.println("<<QUESTLINE CONCLUÍDA - MARIA FOI DERROTADA>>");
+                        break lutaM;
+                    }
+                }
+
+                vezGuts4 = !vezGuts4;
+
+                // --- TURNO DE MARIA ---
+                System.out.println("\nVez de Maria. Pressione Enter para rolar o dado.");
+                scan.nextLine();
+                int rollM = dado.roll();
+                System.out.println("Maria rolou: " + rollM);
+
+                int danoM;
+                if (rollM <= 3) {
+                    danoM = 0;
+                    System.out.println("Maria errou o golpe!");
+                } else if (rollM < 8) {
+                    danoM = 2;
+                    System.out.println("Maria acerta com precisão! Dano: 2");
+                } else {
+                    danoM = 3;
+                    System.out.println("Maria desfere um golpe crítico! Dano: 3");
+                }
+
+                int vidaG = Math.max(0, Guts.getAtributos().getVitalidade() - danoM);
+                Guts.getAtributos().setVitalidade(vidaG);
+                System.out.println("Vitalidade de " + Guts.getNome() + ": " + vidaG);
+
+                if (vidaG <= 0) {
+                    System.out.println("\nGuts cai no chão, a armadura pulsando em desespero...");
+                    System.out.println("A plateia explode em aplausos demoníacos, embriagada pelo sangue!");
+                    publico = Math.min(200, publico + 10);
+                    System.out.println("O público aumenta para " + publico + "% da capacidade!");
+                    System.out.print("Número de pessoas atualmente na arena: " + publico);
+                    System.out.println("<<CHECKPOINT - Voltando ao início da batalha com vida cheia>>");
+                    System.out.println("<<Pressione Enter para continuar>>");
+                    scan.nextLine();
+
+                    Guts.getAtributos().setVitalidade(4);
+                    Maria.getAtributos().setVitalidade(4);
+
+                    continue lutaM;
+                }
+
+                // --- REAÇÃO DA PLATEIA ---
+                if (!houveMorteNoTurno) {
+                    // ambos ainda vivos
+                    publico = Math.max(0, publico - 25);
+                    System.out.println("\nO público começa a se cansar da luta prolongada...");
+                    if (publico <= 50) {
+                        System.out.println("A plateia parece entediada, alguns deixam o estádio.");
+                    } else {
+                        System.out.println("Os gritos diminuem — o sangue ainda não é suficiente.");
+                    }
+                    System.out.println("Público atual: " + publico + "% da capacidade.");
+                    System.out.print("\nNúmero de pessoas atualmente na arena: " + publico);
+                }
+
+                vezGuts4 = !vezGuts4;
+            }
+
+            // --- USO DE DEVOUR HOPE ---
+            while (true) {
+                System.out.println("\nUSAR DEVOUR HOPE?");
+                System.out.println("'E' PARA USAR");
+                System.out.println("'Q' PARA NÃO USAR");
+                String devourHope = scan.nextLine().trim().toUpperCase();
+
+                if (devourHope.equals("E")) {
+                    Guts.getAtributos().setVitalidade(4);
+                    System.out.println("Você usou Devour Hope!");
+                    System.out.println("Vitalidade restaurada para o máximo: " + Guts.getAtributos().getVitalidade());
+                    break;
+                } else if (devourHope.equals("Q")) {
+                    int vidaAtual = Guts.getAtributos().getVitalidade();
+                    System.out.println("Você decidiu não usar Devour Hope.");
+                    System.out.println("Vitalidade atual: " + vidaAtual);
+                    break;
+                } else {
+                    System.out.println("Entrada inválida. Pressione 'E' para usar ou 'Q' para não usar.");
+                }
+            }
+
+            break;
         }
-
-
-
-
     }
+
 }
-    
